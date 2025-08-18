@@ -1,11 +1,13 @@
 [
   {
     "name": "adBTC.top",
+    "status": "free",
     "register": "https://adbtc.top/register",
     "download": "https://adbtc.top/download"
   },
   {
     "name": "Coinpayu.com",
+    "status": "apikey",
     "register": "https://www.coinpayu.com/register",
     "download": "https://www.coinpayu.com/download"
   }
