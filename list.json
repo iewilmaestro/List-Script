@@ -1,7 +1,12 @@
 [
-  { name: "adBTC.top", register: "https://adbtc.top/register", download: "https://adbtc.top/download" },
-  { name: "Coinpayu.com", register: "https://www.coinpayu.com/register", download: "https://www.coinpayu.com/download" },
-  { name: "Vie Faucet", register: "https://viefaucet.com/register", download: "https://viefaucet.com/download" },
-  { name: "Earnbitmoon", register: "https://earnbitmoon.com/register", download: "https://earnbitmoon.com/download" },
-  { name: "SatsFaucet.com", register: "https://satsfaucet.com/register", download: "https://satsfaucet.com/download" }
+  {
+    "name": "adBTC.top",
+    "register": "https://adbtc.top/register",
+    "download": "https://adbtc.top/download"
+  },
+  {
+    "name": "Coinpayu.com",
+    "register": "https://www.coinpayu.com/register",
+    "download": "https://www.coinpayu.com/download"
+  }
 ]
