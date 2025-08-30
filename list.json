@@ -1,14 +1,8 @@
 [
   {
-    "name": "adBTC.top",
+    "name": "@myadsviews_bot",
     "status": "free",
-    "register": "https://adbtc.top/register",
-    "download": "https://adbtc.top/download"
-  },
-  {
-    "name": "Coinpayu.com",
-    "status": "apikey",
-    "register": "https://www.coinpayu.com/register",
-    "download": "https://www.coinpayu.com/download"
+    "register": "https://t.me/myadsviews_bot?start=FRG9GO3o6H8=",
+    "download": "https://exe.io/RgkJy"
   }
 ]
