@@ -1,16 +1,23 @@
 [
-  {
-    "name": "@myadsviews_bot",
-    "status": "free",
-    "register": "https://t.me/myadsviews_bot?start=FRG9GO3o6H8=",
-    "download": "https://exe.io/RgkJy",
-    "media": "https://www.mediafire.com/folder/gu2f29gc6t967/@myadsviews_bot"
-  },
-  {
-    "name": "zerofaucet.com",
-    "status": "free",
-    "register": "https://zerofaucet.com/?ref=t1YAdHgrZfXCtoGsm5QBmsLKWUABpfB5cpv",
-    "download": "https://exe.io/5q48f",
-    "media": "https://www.mediafire.com/folder/x3iv2ihim3bn8/zerofaucet.com"
-  }
+    {
+        "name": "@myadsviews_bot",
+        "status": "free",
+        "register": "https://t.me/myadsviews_bot?start=FRG9GO3o6H8=",
+        "download": "https://exe.io/RgkJy",
+        "media": "https://www.mediafire.com/folder/gu2f29gc6t967/@myadsviews_bot"
+    },
+    {
+        "name": "adbch.top",
+        "status": "free",
+        "register": "https://adbch.top/r/110267",
+        "download": "https://exe.io/93UzAw",
+        "media": "https://www.mediafire.com/file/k14hg5rgmlziqe1/adbch.php/file"
+    },
+    {
+        "name": "zerofaucet.com",
+        "status": "free",
+        "register": "https://zerofaucet.com/?ref=t1YAdHgrZfXCtoGsm5QBmsLKWUABpfB5cpv",
+        "download": "https://exe.io/5q48f",
+        "media": "https://www.mediafire.com/folder/x3iv2ihim3bn8/zerofaucet.com"
+    }
 ]
