@@ -21,7 +21,7 @@ function loadList($file){
 function saveList($file,$data){
     file_put_contents($file,json_encode($data,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES));
 }
-function sendTelegramButtonToTopic($text, $token, $chat_id, $thread_id) {
+function sendTelegramToTopic($text, $token, $chat_id, $thread_id) {
     $url = "https://api.telegram.org/bot$token/sendMessage";
 
     // tombol inline
@@ -193,7 +193,7 @@ if($input=="3"){
         $text = "✅ Git Updated\n".implode("\n",$lines);
     }
 
-
+    print $text."\n";
     // 5. Kirim Telegram ke topik
     sendTelegramToTopic($text,$botToken,$chatId,$threadId);
 
