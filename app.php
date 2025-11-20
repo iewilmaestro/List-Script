@@ -54,26 +54,33 @@ function sendTelegramToTopic($text, $token, $chat_id, $thread_id) {
     file_get_contents($url, false, $context);
 }
 
-function compareLists($old,$new){
+function compareLists($old, $new) {
     $old_map = [];
-    foreach($old as $item) $old_map[$item['name']]=$item;
-    
+    foreach ($old as $item) $old_map[$item['name']] = $item;
+
     $new_map = [];
-    foreach($new as $item) $new_map[$item['name']]=$item;
+    foreach ($new as $item) $new_map[$item['name']] = $item;
 
     $lines = [];
 
-    // Bot baru
-    foreach($new as $item){
+    // Bot baru / update
+    foreach ($new as $item) {
         $name = $item['name'];
-        if(!isset($old_map[$name])){
+
+        if (!isset($old_map[$name])) {
             $lines[] = "➕ Bot baru: $name";
-        } else {
-            $oldItem = $old_map[$name];
-            foreach($item as $k=>$v){
-                if($k=='name') continue;
-                if(!isset($oldItem[$k])) continue;
-                if($oldItem[$k]!=$v){
+            continue;
+        }
+
+        $oldItem = $old_map[$name];
+        foreach ($item as $k => $v) {
+            if ($k == 'name') continue;
+            if (!isset($oldItem[$k])) continue;
+
+            if ($oldItem[$k] != $v) {
+                if ($k === 'date') {
+                    $lines[] = "⬆️ $name diupdate";
+                } else {
                     $lines[] = "✏️ $k diubah: $name {$oldItem[$k]} → $v";
                 }
             }
@@ -81,9 +88,9 @@ function compareLists($old,$new){
     }
 
     // Bot dihapus
-    foreach($old as $item){
+    foreach ($old as $item) {
         $name = $item['name'];
-        if(!isset($new_map[$name])){
+        if (!isset($new_map[$name])) {
             $lines[] = "❌ Bot dihapus: $name";
         }
     }
@@ -94,10 +101,12 @@ function compareLists($old,$new){
 // ----------------------------
 // CLI MENU
 // ----------------------------
+menu:
+(PHP_OS == "Linux") ? system('clear') : pclose(popen('cls','w'));
 echo "==========================\n";
 echo " BOT MANAGER (CLI MODE)\n";
 echo "==========================\n";
-echo "1. Tambah Bot\n2. Edit Status Bot\n3. Update ke GitHub\n--------------------------\nPilih menu: ";
+echo "1. Tambah Bot\n2. Edit Status Bot\n3. Update ke GitHub\n4. Update Bot\n--------------------------\nPilih menu: ";
 
 $input = trim(fgets(STDIN));
 $data = loadList($file);
@@ -108,8 +117,18 @@ $data = loadList($file);
 if($input=="1"){
     echo "Nama bot: ";
     $name = trim(fgets(STDIN));
-    echo "Status (free/premium/dead): ";
+
+    print "1. free\n";
+    print "2. apikey\n";
+    echo "Status (number): ";
     $status = trim(fgets(STDIN));
+    if($status == 1){
+        $status = "free";
+    }elseif($status == 2){
+        $status = "apikey";
+    }else{
+        exit("salah status\n");
+    }
     echo "Link register: ";
     $register = trim(fgets(STDIN));
     echo "Link download: ";
@@ -122,7 +141,8 @@ if($input=="1"){
         "status"=>$status,
         "register"=>$register,
         "download"=>$download,
-        "media"=>$media
+        "media"=>$media,
+        "date"=>time()
     ];
 
     // Tambah & urutkan A-Z
@@ -140,7 +160,7 @@ if($input=="1"){
 if($input=="2"){
     echo "Daftar Bot:\n";
     foreach($data as $i=>$item){
-        echo ($i+1).". ".$item["name"]." (status: ".$item["status"].")\n";
+        echo ($i+1).". ".$item["name"]." (".$item["status"].")\n";
     }
     echo "Pilih nomor bot: ";
     $num = trim(fgets(STDIN));
@@ -148,11 +168,12 @@ if($input=="2"){
     if(!isset($data[$idx])){
         echo "Bot tidak ditemukan!\n"; exit;
     }
-    echo "Status baru (free/premium/dead): ";
+    echo "Status baru (free/apikey): ";
     $status = trim(fgets(STDIN));
     $data[$idx]["status"] = $status;
     saveList($file,$data);
-    echo "Status berhasil diperbarui!\n"; exit;
+    echo "Status berhasil diperbarui!\n";
+    exit;
 }
 
 // ----------------------------
@@ -187,10 +208,10 @@ if($input=="3"){
     $lines = compareLists($awal,$baru);
 
     if (empty($lines)) {
-        $text = "✅ Git Updated: Tidak ada perubahan valid pada list.json";
+        $text = "⚠️ Script Updated: Tidak ada perubahan valid";
     } else {
         // gunakan \n atau <br> sesuai keinginan
-        $text = "✅ Git Updated\n".implode("\n",$lines);
+        $text = "⚠️ Script Updated\n".implode("\n",$lines);
     }
 
     print $text."\n";
@@ -201,5 +222,23 @@ if($input=="3"){
     exit;
 }
 
+if($input=="4"){
+    echo "Daftar Bot:\n";
+    foreach($data as $i=>$item){
+        echo ($i+1).". ".$item["name"]." (".$item["date"].")\n";
+    }
+    echo "Pilih nomor bot: ";
+    $num = trim(fgets(STDIN));
+    $idx = $num-1;
+    if(!isset($data[$idx])){
+        echo "Bot tidak ditemukan!\n"; exit;
+    }
+    echo "apakah anda yakin ingin update date?";
+    trim(fgets(STDIN));
+    $data[$idx]["date"] = time();
+    saveList($file,$data);
+    echo "Status berhasil diperbarui!\n";
+    exit;
+}
 echo "Menu tidak dikenal.\n";
 exit;
