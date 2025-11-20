@@ -42,22 +42,37 @@ function sendTelegramToTopic($text,$token,$chat_id,$thread_id){
 function compareLists($old,$new){
     $old_map = [];
     foreach($old as $item) $old_map[$item['name']]=$item;
+    
+    $new_map = [];
+    foreach($new as $item) $new_map[$item['name']]=$item;
+
     $lines = [];
+
+    // Bot baru
     foreach($new as $item){
         $name = $item['name'];
         if(!isset($old_map[$name])){
             $lines[] = "➕ Bot baru: $name";
-            continue;
-        }
-        $oldItem = $old_map[$name];
-        foreach($item as $k=>$v){
-            if($k=='name') continue;
-            if(!isset($oldItem[$k])) continue;
-            if($oldItem[$k]!=$v){
-                $lines[] = "✏️ $k diubah: $name {$oldItem[$k]} → $v";
+        } else {
+            $oldItem = $old_map[$name];
+            foreach($item as $k=>$v){
+                if($k=='name') continue;
+                if(!isset($oldItem[$k])) continue;
+                if($oldItem[$k]!=$v){
+                    $lines[] = "✏️ $k diubah: $name {$oldItem[$k]} → $v";
+                }
             }
         }
     }
+
+    // Bot dihapus
+    foreach($old as $item){
+        $name = $item['name'];
+        if(!isset($new_map[$name])){
+            $lines[] = "❌ Bot dihapus: $name";
+        }
+    }
+
     return $lines;
 }
 
