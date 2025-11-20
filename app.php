@@ -81,7 +81,7 @@ function compareLists($old, $new) {
                 if ($k === 'date') {
                     $lines[] = "⬆️ $name diupdate";
                 } else {
-                    $lines[] = "✏️ $k diubah: $name {$oldItem[$k]} → $v";
+                    $lines[] = "✏️ $k diubah: $name ";
                 }
             }
         }
