@@ -4,9 +4,9 @@
 // ----------------------------
 $file = __DIR__ . "/list.json";
 $repoPath = __DIR__;
-$botToken = "BOT_TOKEN_ANDA";
-$chatId   = "-1001234567890";
-$threadId = 12345;
+$botToken = "7577540935:AAGcIyWwbA6KRv68X9sodT7X9-gF3772huY";
+$chatId   = "-1002388014286";
+$threadId = 60;
 $remoteJsonUrl = "https://raw.githubusercontent.com/iewilmaestro/List-Script/refs/heads/main/list.json";
 
 // ----------------------------
@@ -21,24 +21,39 @@ function loadList($file){
 function saveList($file,$data){
     file_put_contents($file,json_encode($data,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES));
 }
-function sendTelegramToTopic($text,$token,$chat_id,$thread_id){
+function sendTelegramButtonToTopic($text, $token, $chat_id, $thread_id) {
     $url = "https://api.telegram.org/bot$token/sendMessage";
-    $data = [
-        "chat_id"=>$chat_id,
-        "message_thread_id"=>$thread_id,
-        "text"=>$text,
-        "parse_mode"=>"HTML"
-    ];
-    $options = [
-        "http"=>[
-            "header"=>"Content-Type: application/x-www-form-urlencoded\r\n",
-            "method"=>"POST",
-            "content"=>http_build_query($data)
+
+    // tombol inline
+    $keyboard = [
+        "inline_keyboard" => [
+            [
+                ["text" => "cek script list", "url" => "https://iewilofficial.blogspot.com/2025/08/list-script.html"]
+            ]
         ]
     ];
+
+    $data = [
+        "chat_id" => $chat_id,
+        "message_thread_id" => $thread_id,
+        "text" => $text,
+        "parse_mode" => "HTML",
+        "reply_markup" => json_encode($keyboard),
+        'disable_web_page_preview' => true
+    ];
+
+    $options = [
+        "http" => [
+            "header" => "Content-Type: application/x-www-form-urlencoded\r\n",
+            "method" => "POST",
+            "content" => http_build_query($data)
+        ]
+    ];
+
     $context = stream_context_create($options);
-    file_get_contents($url,false,$context);
+    file_get_contents($url, false, $context);
 }
+
 function compareLists($old,$new){
     $old_map = [];
     foreach($old as $item) $old_map[$item['name']]=$item;
@@ -170,13 +185,15 @@ if($input=="3"){
 
     // 4. Compare
     $lines = compareLists($awal,$baru);
-    $infoTambahan = 'ℹ️ Info: <a href="https://iewilofficial.blogspot.com/2025/08/list-script.html">cek script list</a>';
+
     if (empty($lines)) {
-        $text = "✅ Git Updated: Tidak ada perubahan valid pada list.json<br>$infoTambahan";
+        $text = "✅ Git Updated: Tidak ada perubahan valid pada list.json";
     } else {
-        $text = "✅ Git Updated<br>".implode("<br>", $lines)."<br>$infoTambahan";
+        // gunakan \n atau <br> sesuai keinginan
+        $text = "✅ Git Updated\n".implode("\n",$lines);
     }
-    print_r($text);exit;
+
+
     // 5. Kirim Telegram ke topik
     sendTelegramToTopic($text,$botToken,$chatId,$threadId);
 
