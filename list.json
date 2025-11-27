@@ -8,6 +8,14 @@
         "date": 1763642216
     },
     {
+        "name": "beefaucet.org",
+        "status": "apikey",
+        "register": "https://beefaucet.org/bnb-faucet/?r=purna.iera@gmail.com",
+        "download": "https://exe.io/US1InGXq",
+        "media": "https://www.mediafire.com/folder/b0u79i6l5jx9f/beefaucet.org",
+        "date": 1764264639
+    },
+    {
         "name": "claimfreecoins.io",
         "status": "apikey",
         "register": "https://claimfreecoins.io/bitcoin-faucet/?r=purna.iera@gmail.com",
