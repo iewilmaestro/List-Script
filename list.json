@@ -61,7 +61,9 @@
         "register": "https://ourcoincash.xyz/?r=3408",
         "download": "https://exe.io/Z3BlWz9j",
         "media": "https://www.mediafire.com/folder/0rytj9a06u87i/ourcoincash.xyz",
-        "date": 1764167931
+        "date": 1765681334,
+        "version": "0.0.2",
+        "description": "fix bug ptc"
     },
     {
         "name": "serfclick.net",
